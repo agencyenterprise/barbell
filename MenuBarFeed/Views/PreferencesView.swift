@@ -83,6 +83,8 @@ struct PreferencesView: View {
                 .lineLimit(nil)
                 .fixedSize(horizontal: false, vertical: true)
             
+            LaunchAtLogin.Toggle()
+            
             HStack {
                 Button("Cancel") {
                     NSApplication.shared.keyWindow?.close()

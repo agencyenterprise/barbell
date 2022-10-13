@@ -14,7 +14,7 @@ struct Constants {
     static let defaultHistoryMenuCharacters: Int = 60
     static let maxItemsToFetch: Int = 22
     static let preferencesMenuWidth: CGFloat = 400
-    static let preferencesMenuHeight: CGFloat = 480
+    static let preferencesMenuHeight: CGFloat = 508
 
     static let hackerNewsFetchPeriod: Double = 60 * 40 // 40 minutes
     static let twitterFetchPeriod: Double = 60 * 2 // 2 minutes

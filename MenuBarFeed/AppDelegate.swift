@@ -12,7 +12,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let viewModel = FeedListViewModel()
     
     @IBOutlet weak var statusMenu: NSMenu!
-    @IBOutlet weak var launchOnLoginMenuItem: NSMenuItem!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -79,9 +78,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func openInBrowser(_ sender: Any) {
         guard let currentItem = viewModel.currentFeedItem else { return }
         NSWorkspace.shared.open(URL(string: currentItem.item.url)!)
-    }
-    
-    func updateLaunchOnLogin() {
-        launchOnLoginMenuItem.state = LaunchAtLogin.isEnabled ? .on : .off
     }
 }

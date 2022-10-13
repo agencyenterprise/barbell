@@ -9,7 +9,7 @@ class MenuManager: NSObject, NSMenuDelegate {
     private let viewModel: FeedListViewModel
     
     let itemsBeforeTasks = 2
-    let itemsAfterTasks = 5
+    let itemsAfterTasks = 4
     
     init(statusMenu: NSMenu, viewModel: FeedListViewModel) {
         self.statusMenu = statusMenu
@@ -19,11 +19,6 @@ class MenuManager: NSObject, NSMenuDelegate {
     
     func menuWillOpen(_ menu: NSMenu) {
         menuIsOpen = true
-        
-        if let appDelegate = NSApp.delegate as? AppDelegate {
-            appDelegate.updateLaunchOnLogin()
-        }
-        
         showHistoryInMenu()
     }
     
