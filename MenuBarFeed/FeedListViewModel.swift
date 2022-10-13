@@ -1,9 +1,9 @@
-////
-////  FeedListViewModel.swift
-////  MenuBarFeed
-////
-////  Created by Fred Murakawa on 26/09/22.
-////
+//
+//  FeedListViewModel.swift
+//  MenuBarFeed
+//
+//  Created by Fred Murakawa on 26/09/22.
+//
 //
 import Combine
 import Foundation

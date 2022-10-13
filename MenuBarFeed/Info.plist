@@ -4,5 +4,7 @@
 <dict>
 	<key>LSUIElement</key>
 	<true/>
+	<key>BEARER_TOKEN</key>
+	<string>$(BEARER_TOKEN)</string>
 </dict>
 </plist>

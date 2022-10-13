@@ -74,16 +74,15 @@ final class WebService {
     }
     
     private func getUsersId(from users: [String]) async -> [String] {
-//        guard let bearerToken = Self.getToken() else {
-//            print("API key does not exist")
-//            return []
-//        }
+        guard let bearerToken = Self.getToken() else {
+            print("API key does not exist")
+            return []
+        }
         
         if !users.isEmpty {
             let userNames = users.joined(separator: "%2C")
             var request = URLRequest(url: URL(string: "https://api.twitter.com/2/users/by?usernames=\(userNames)&user.fields=id")!)
-//            request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
-            request.setValue("Bearer AAAAAAAAAAAAAAAAAAAAAMpDfgEAAAAAXVAI8kdruq0ejnunh5JdiAnrr4I%3DugR0J912ueTVOH1f57QjLcsz4rJlyuKn38lj5ohAJLIjH3QDSj", forHTTPHeaderField: "Authorization")
+            request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
 
             do {
                 let (data, response) = try await URLSession.shared.data(for: request)
@@ -109,10 +108,10 @@ final class WebService {
     }
     
     func getTweets(from users: [String]) async -> [FeedItem] {
-//        guard let bearerToken = Self.getToken() else {
-//            print("API key does not exist")
-//            return []
-//        }
+        guard let bearerToken = Self.getToken() else {
+            print("API key does not exist")
+            return []
+        }
         
         guard !users.isEmpty else {
             print("No Twitter user set")
@@ -141,8 +140,7 @@ final class WebService {
             }
             
             var request = URLRequest(url: url)
-//            request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
-            request.setValue("Bearer AAAAAAAAAAAAAAAAAAAAAMpDfgEAAAAAXVAI8kdruq0ejnunh5JdiAnrr4I%3DugR0J912ueTVOH1f57QjLcsz4rJlyuKn38lj5ohAJLIjH3QDSj", forHTTPHeaderField: "Authorization")
+            request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
             guard let (data, response) = try? await URLSession.shared.data(for: request) else {
                 print("Error: Fetch tweets failed")
                 continue
