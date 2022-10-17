@@ -12,6 +12,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let viewModel = FeedListViewModel()
     
     @IBOutlet weak var statusMenu: NSMenu!
+    @IBOutlet weak var silenceFeedMenuItem: NSMenuItem!
+    
+    @Published private var isFeedSilenced: Bool = false
+    private var silenceFeedTimer: AnyCancellable?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -71,8 +75,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         controller.showWindow(nil)
     }
     
-    @IBAction func toggleLaunchOnLogin(_ sender: Any) {
-        LaunchAtLogin.isEnabled.toggle()
+    @IBAction func onSilenceFeedTapped(_ sender: Any) {
+        isFeedSilenced.toggle()
+        if isFeedSilenced {
+            silenceFeedMenuItem.state = .on
+            silenceFeedTimer = nil
+            silenceFeedTimer = Timer
+                .publish(every: Constants.silenceFeedPeriod, on: .main, in: .common)
+                .autoconnect()
+                .sink(receiveValue: { [weak self] _ in
+                    guard let self = self else { return }
+                    self.onSilenceFeedTapped(self.silenceFeedMenuItem!)
+                })
+        } else {
+            silenceFeedMenuItem.state = .off
+            silenceFeedTimer = nil
+        }
     }
     
     @IBAction func openInBrowser(_ sender: Any) {

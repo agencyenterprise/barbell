@@ -28,6 +28,12 @@
                                                 <action selector="openPreferences:" target="Voe-Tx-rLC" id="Zml-Cv-fdi"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Silence for X minutes" id="VPr-rg-p0O">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="onSilenceFeedTapped:" target="Voe-Tx-rLC" id="vyX-if-4Xy"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
                                         <menuItem title="Quit Menu Bar Feed" id="4sb-4s-VLi">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -46,6 +52,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Menu_Bar_Feed" customModuleProvider="target">
                     <connections>
+                        <outlet property="silenceFeedMenuItem" destination="VPr-rg-p0O" id="td8-9t-Pkq"/>
                         <outlet property="statusMenu" destination="uQy-DD-JDr" id="pvi-lc-CxE"/>
                     </connections>
                 </customObject>

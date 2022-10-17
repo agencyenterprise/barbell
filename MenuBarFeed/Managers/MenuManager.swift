@@ -9,7 +9,7 @@ class MenuManager: NSObject, NSMenuDelegate {
     private let viewModel: FeedListViewModel
     
     let itemsBeforeTasks = 2
-    let itemsAfterTasks = 4
+    let itemsAfterTasks = 5
     
     init(statusMenu: NSMenu, viewModel: FeedListViewModel) {
         self.statusMenu = statusMenu

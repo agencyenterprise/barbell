@@ -20,6 +20,8 @@ struct Constants {
     static let twitterFetchPeriod: Double = 60 * 2 // 2 minutes
     static let twitterStartFetchDate: Double = -60 * 5 // Tweets in the last 5 minutes
     static let defaultFeedRefreshInterval: Double = 60 * 2 // 2 minuts
+    
+    static let silenceFeedPeriod: Double = 60 * 1 // 60 minutes
 
 
     //MARK: - User Defaults Keys
