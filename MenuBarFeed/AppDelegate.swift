@@ -81,7 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             silenceFeedMenuItem.state = .on
             silenceFeedTimer = nil
             silenceFeedTimer = Timer
-                .publish(every: Constants.silenceFeedPeriod, on: .main, in: .common)
+                .publish(every: Constants.silenceFeedPeriod, tolerance: 0.5, on: .main, in: .common)
                 .autoconnect()
                 .sink(receiveValue: { [weak self] _ in
                     guard let self = self else { return }
