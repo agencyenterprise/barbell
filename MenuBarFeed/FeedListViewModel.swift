@@ -37,12 +37,7 @@ final class FeedListViewModel: ObservableObject {
         on: .main,
         in: .common
     ).autoconnect()
-    private lazy var feedTimer = Timer.publish(
-        every: self.feedRefreshInterval,
-        tolerance: 0.5,
-        on: .main,
-        in: .common
-    ).autoconnect()
+    private var feedTimer: Publishers.Autoconnect<Timer.TimerPublisher>?
     
     private var cleanHistoryTimerCancellable: AnyCancellable?
     private var hackerNewsTimerCancellable: AnyCancellable?
@@ -55,6 +50,8 @@ final class FeedListViewModel: ObservableObject {
     private var isHackerNewsSelected: Bool = UserDefaults.getIsHackerNewsSelected()
     private var isRedditSelected: Bool = UserDefaults.getIsRedditSelected()
     private var feedRefreshInterval: Double = UserDefaults.getFeedRefreshInterval()
+    
+    var isFeedSilenced: Bool = false
     
     @Published var menuBarMaxCharactersSubject: Int = {
         if UserDefaults.standard.object(forKey: Constants.menuBarMaxCharactersKey) == nil {
@@ -103,6 +100,12 @@ final class FeedListViewModel: ObservableObject {
     }
     
     private func fetchHackerNews() async {
+        guard !isFeedSilenced else {
+            resetHackerNewsTimer()
+            hackerNews = []
+            return
+        }
+        
         if isHackerNewsSelected {
             hackerNews = await webService.getHackerNewsStories().filter { !history.contains($0) }.reversed() // Reverse ok
             resetHackerNewsTimer()
@@ -112,11 +115,23 @@ final class FeedListViewModel: ObservableObject {
     }
     
     private func fetchTweets() async {
+        guard !isFeedSilenced else {
+            tweets = []
+            resetTwitterTimer()
+            return
+        }
+        
         tweets = await webService.getTweets(from: twitterUsers).filter { !history.contains($0) }
         resetTwitterTimer()
     }
     
     private func fetchReddit() async {
+        guard !isFeedSilenced else {
+            redditPosts = []
+            resetRedditTimer()
+            return
+        }
+        
         if isRedditSelected {
             redditPostsDict = await webService.getReddits(for: subredditNames)
             sortRedditPosts()
@@ -289,9 +304,25 @@ final class FeedListViewModel: ObservableObject {
     private func resetFeedTimer() {
         feedTimerCancellable?.cancel()
         feedTimerCancellable = nil
-        feedTimerCancellable = feedTimer
+        if let currentFeedTimer = feedTimer {
+            currentFeedTimer.upstream.connect().cancel()
+            self.feedTimer = nil
+        }
+        
+        feedTimer = Timer.publish(
+            every: self.feedRefreshInterval,
+            tolerance: 0.5,
+            on: .main,
+            in: .common
+        ).autoconnect()
+        
+        feedTimerCancellable = feedTimer!
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
+                guard !self.isFeedSilenced else {
+                    return
+                }
+                
                 Task {
                     await self.updateCurrentItem()
                 }
@@ -321,5 +352,16 @@ final class FeedListViewModel: ObservableObject {
     
     private func isValidChar(_ char: String.Element) -> Bool {
         return !char.unicodeScalars.contains(where: { !CharacterSet.alphanumerics.contains($0) && $0 != "_" && $0 != "," })
+    }
+    
+    func onSilenceFeedTapped() {
+        isFeedSilenced.toggle()
+        lastUpdatedDate = nil
+        
+        if let feedItem = currentFeedItem {
+            if !history.contains(feedItem) {
+                history.append(feedItem)
+            }
+        }
     }
 }

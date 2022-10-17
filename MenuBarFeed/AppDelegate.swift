@@ -14,7 +14,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var silenceFeedMenuItem: NSMenuItem!
     
-    @Published private var isFeedSilenced: Bool = false
     private var silenceFeedTimer = Timer
         .publish(every: Constants.silenceFeedPeriod, tolerance: 0.5, on: .main, in: .common).autoconnect()
     private var silenceFeedTimerCancellable: AnyCancellable?
@@ -78,8 +77,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func onSilenceFeedTapped(_ sender: Any) {
-        isFeedSilenced.toggle()
-        if isFeedSilenced {
+        viewModel.onSilenceFeedTapped()
+        
+        if viewModel.isFeedSilenced {
             silenceFeedMenuItem.state = .on
             silenceFeedTimerCancellable?.cancel()
             silenceFeedTimerCancellable = nil
@@ -88,10 +88,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     guard let self = self else { return }
                     self.onSilenceFeedTapped(self.silenceFeedMenuItem!)
                 })
+            
+            statusItem?.button?.title = ""
+            let statusImage = NSImage(imageLiteralResourceName: "menuIcon")
+            statusImage.size = NSMakeSize(20, 16);
+            statusItem?.button?.image = statusImage
         } else {
+            statusItem?.button?.image = nil
             silenceFeedMenuItem.state = .off
             silenceFeedTimerCancellable?.cancel()
             silenceFeedTimerCancellable = nil
+            
+            Task {
+                await viewModel.fetchAll()
+            }
         }
     }
     

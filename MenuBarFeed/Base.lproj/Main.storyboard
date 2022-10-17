@@ -28,7 +28,7 @@
                                                 <action selector="openPreferences:" target="Voe-Tx-rLC" id="Zml-Cv-fdi"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Silence for X minutes" id="VPr-rg-p0O">
+                                        <menuItem title="Silence for an hour" id="VPr-rg-p0O">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="onSilenceFeedTapped:" target="Voe-Tx-rLC" id="vyX-if-4Xy"/>
