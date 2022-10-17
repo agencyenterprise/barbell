@@ -15,7 +15,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var silenceFeedMenuItem: NSMenuItem!
     
     @Published private var isFeedSilenced: Bool = false
-    private var silenceFeedTimer: AnyCancellable?
+    private var silenceFeedTimer = Timer
+        .publish(every: Constants.silenceFeedPeriod, tolerance: 0.5, on: .main, in: .common).autoconnect()
+    private var silenceFeedTimerCancellable: AnyCancellable?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -79,17 +81,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         isFeedSilenced.toggle()
         if isFeedSilenced {
             silenceFeedMenuItem.state = .on
-            silenceFeedTimer = nil
-            silenceFeedTimer = Timer
-                .publish(every: Constants.silenceFeedPeriod, tolerance: 0.5, on: .main, in: .common)
-                .autoconnect()
+            silenceFeedTimerCancellable?.cancel()
+            silenceFeedTimerCancellable = nil
+            silenceFeedTimerCancellable = silenceFeedTimer
                 .sink(receiveValue: { [weak self] _ in
                     guard let self = self else { return }
                     self.onSilenceFeedTapped(self.silenceFeedMenuItem!)
                 })
         } else {
             silenceFeedMenuItem.state = .off
-            silenceFeedTimer = nil
+            silenceFeedTimerCancellable?.cancel()
+            silenceFeedTimerCancellable = nil
         }
     }
     

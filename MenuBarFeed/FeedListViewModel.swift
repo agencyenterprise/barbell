@@ -13,11 +13,42 @@ final class FeedListViewModel: ObservableObject {
     
     private let webService = WebService()
     
-    private var cleanHistoryTimer: AnyCancellable?
-    private var hackerNewsTimer: AnyCancellable?
-    private var redditTimer: AnyCancellable?
-    private var twitterTimer: AnyCancellable?
-    private var feedTimer: AnyCancellable?
+    private var cleanHistoryTimer = Timer.publish(
+        every: Constants.hackerNewsFetchPeriod,
+        tolerance: 0.5,
+        on: .main,
+        in: .common
+    ).autoconnect()
+    private var hackerNewsTimer = Timer.publish(
+        every: Constants.hackerNewsFetchPeriod,
+        tolerance: 0.5,
+        on: .main,
+        in: .common
+    ).autoconnect()
+    private var redditTimer = Timer.publish(
+        every: Constants.hackerNewsFetchPeriod,
+        tolerance: 0.5,
+        on: .main,
+        in: .common
+    ).autoconnect()
+    private var twitterTimer = Timer.publish(
+        every: Constants.twitterFetchPeriod,
+        tolerance: 0.5,
+        on: .main,
+        in: .common
+    ).autoconnect()
+    private lazy var feedTimer = Timer.publish(
+        every: self.feedRefreshInterval,
+        tolerance: 0.5,
+        on: .main,
+        in: .common
+    ).autoconnect()
+    
+    private var cleanHistoryTimerCancellable: AnyCancellable?
+    private var hackerNewsTimerCancellable: AnyCancellable?
+    private var redditTimerCancellable: AnyCancellable?
+    private var twitterTimerCancellable: AnyCancellable?
+    private var feedTimerCancellable: AnyCancellable?
     
     private var twitterUsers: [String] = UserDefaults.getSavedTwitterUsers()
     private var subredditNames: [String] = UserDefaults.getSavedSubredditNames()
@@ -214,10 +245,9 @@ final class FeedListViewModel: ObservableObject {
     // MARK: - Set Timers
     
     private func resetHackerNewsTimer() {
-        hackerNewsTimer = nil
-        hackerNewsTimer = Timer
-            .publish(every: Constants.hackerNewsFetchPeriod, tolerance: 0.5, on: .main, in: .common)
-            .autoconnect()
+        hackerNewsTimerCancellable?.cancel()
+        hackerNewsTimerCancellable = nil
+        hackerNewsTimerCancellable = hackerNewsTimer
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 Task {
@@ -229,10 +259,9 @@ final class FeedListViewModel: ObservableObject {
     }
     
     private func resetRedditTimer() {
-        redditTimer = nil
-        redditTimer = Timer
-            .publish(every: Constants.hackerNewsFetchPeriod, tolerance: 0.5, on: .main, in: .common)
-            .autoconnect()
+        redditTimerCancellable?.cancel()
+        redditTimerCancellable = nil
+        redditTimerCancellable = redditTimer
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 Task {
@@ -244,10 +273,9 @@ final class FeedListViewModel: ObservableObject {
     }
     
     private func resetTwitterTimer() {
-        twitterTimer = nil
-        twitterTimer = Timer
-            .publish(every: Constants.twitterFetchPeriod, tolerance: 0.5, on: .main, in: .common)
-            .autoconnect()
+        twitterTimerCancellable?.cancel()
+        twitterTimerCancellable = nil
+        twitterTimerCancellable = twitterTimer
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 Task {
@@ -259,10 +287,9 @@ final class FeedListViewModel: ObservableObject {
     }
     
     private func resetFeedTimer() {
-        feedTimer = nil
-        feedTimer = Timer
-            .publish(every: self.feedRefreshInterval, tolerance: 0.5, on: .main, in: .common)
-            .autoconnect()
+        feedTimerCancellable?.cancel()
+        feedTimerCancellable = nil
+        feedTimerCancellable = feedTimer
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 Task {
@@ -272,10 +299,9 @@ final class FeedListViewModel: ObservableObject {
     }
     
     private func resetCleanHistoryTimer() {
-        cleanHistoryTimer = nil
-        cleanHistoryTimer = Timer
-            .publish(every: Constants.hackerNewsFetchPeriod, tolerance: 0.5, on: .main, in: .common)
-            .autoconnect()
+        cleanHistoryTimerCancellable?.cancel()
+        cleanHistoryTimerCancellable = nil
+        cleanHistoryTimerCancellable = cleanHistoryTimer
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 self.history = OrderedSet(self.history.suffix(Constants.maxHistoryItems))
