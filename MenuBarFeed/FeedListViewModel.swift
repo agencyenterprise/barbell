@@ -216,7 +216,7 @@ final class FeedListViewModel: ObservableObject {
     private func resetHackerNewsTimer() {
         hackerNewsTimer = nil
         hackerNewsTimer = Timer
-            .publish(every: Constants.hackerNewsFetchPeriod, on: .main, in: .common)
+            .publish(every: Constants.hackerNewsFetchPeriod, tolerance: 0.5, on: .main, in: .common)
             .autoconnect()
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
@@ -231,7 +231,7 @@ final class FeedListViewModel: ObservableObject {
     private func resetRedditTimer() {
         redditTimer = nil
         redditTimer = Timer
-            .publish(every: Constants.hackerNewsFetchPeriod, on: .main, in: .common)
+            .publish(every: Constants.hackerNewsFetchPeriod, tolerance: 0.5, on: .main, in: .common)
             .autoconnect()
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
@@ -246,7 +246,7 @@ final class FeedListViewModel: ObservableObject {
     private func resetTwitterTimer() {
         twitterTimer = nil
         twitterTimer = Timer
-            .publish(every: Constants.twitterFetchPeriod, on: .main, in: .common)
+            .publish(every: Constants.twitterFetchPeriod, tolerance: 0.5, on: .main, in: .common)
             .autoconnect()
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
@@ -261,7 +261,7 @@ final class FeedListViewModel: ObservableObject {
     private func resetFeedTimer() {
         feedTimer = nil
         feedTimer = Timer
-            .publish(every: self.feedRefreshInterval, on: .main, in: .common)
+            .publish(every: self.feedRefreshInterval, tolerance: 0.5, on: .main, in: .common)
             .autoconnect()
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
@@ -274,7 +274,7 @@ final class FeedListViewModel: ObservableObject {
     private func resetCleanHistoryTimer() {
         cleanHistoryTimer = nil
         cleanHistoryTimer = Timer
-            .publish(every: Constants.hackerNewsFetchPeriod, on: .main, in: .common)
+            .publish(every: Constants.hackerNewsFetchPeriod, tolerance: 0.5, on: .main, in: .common)
             .autoconnect()
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
