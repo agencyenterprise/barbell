@@ -12,7 +12,6 @@
 		268EB60A272A95F5005179F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 268EB608272A95F5005179F1 /* Main.storyboard */; };
 		268EB621272A9A19005179F1 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268EB620272A9A19005179F1 /* MenuManager.swift */; };
 		26BE26822742403F000401E9 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 26BE26812742403F000401E9 /* LaunchAtLogin */; };
-		B62ABC6E28F8BB62004057EE /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B62ABC6D28F8BB62004057EE /* Secrets.xcconfig */; };
 		B696884D28F894C900DE1373 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B696884C28F894C900DE1373 /* Constants.swift */; };
 		B696884F28F894D600DE1373 /* FeedListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B696884E28F894D600DE1373 /* FeedListViewModel.swift */; };
 		B696885128F894F500DE1373 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B696885028F894F500DE1373 /* PreferencesView.swift */; };
@@ -32,7 +31,7 @@
 		268EB60B272A95F5005179F1 /* MenuBarFeed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MenuBarFeed.entitlements; sourceTree = "<group>"; };
 		268EB611272A97D1005179F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		268EB620272A9A19005179F1 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
-		B62ABC6D28F8BB62004057EE /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		B60CF9FE29142E8B001521F3 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		B696884C28F894C900DE1373 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B696884E28F894D600DE1373 /* FeedListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedListViewModel.swift; sourceTree = "<group>"; };
 		B696885028F894F500DE1373 /* PreferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
@@ -94,7 +93,7 @@
 				268EB608272A95F5005179F1 /* Main.storyboard */,
 				268EB60B272A95F5005179F1 /* MenuBarFeed.entitlements */,
 				268EB611272A97D1005179F1 /* Info.plist */,
-				B62ABC6D28F8BB62004057EE /* Secrets.xcconfig */,
+				B60CF9FE29142E8B001521F3 /* Secrets.xcconfig */,
 			);
 			path = MenuBarFeed;
 			sourceTree = "<group>";
@@ -189,7 +188,6 @@
 			files = (
 				268EB607272A95F5005179F1 /* Assets.xcassets in Resources */,
 				268EB60A272A95F5005179F1 /* Main.storyboard in Resources */,
-				B62ABC6E28F8BB62004057EE /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +265,7 @@
 /* Begin XCBuildConfiguration section */
 		268EB60C272A95F5005179F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B62ABC6D28F8BB62004057EE /* Secrets.xcconfig */;
+			baseConfigurationReference = B60CF9FE29142E8B001521F3 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -329,7 +327,7 @@
 		};
 		268EB60D272A95F5005179F1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B62ABC6D28F8BB62004057EE /* Secrets.xcconfig */;
+			baseConfigurationReference = B60CF9FE29142E8B001521F3 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
