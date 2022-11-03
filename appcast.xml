@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Barbell</title>
+        <item>
+            <title>1.0.0</title>
+            <pubDate>Thu, 03 Nov 2022 14:45:02 -0700</pubDate>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/agencyenterprise/barbell/releases/download/v1.0.0/Barbell.dmg" length="2394008" type="application/octet-stream" sparkle:edSignature="XtMd9xBDNM6nP8GxXTsj6ZhL6veXB6YcsKcX5sgm/ZlpuxXmBMB9nxYnSrXZWDyzuHTaqQA0+SQBACqnBNo7CA=="/>
+        </item>
+    </channel>
+</rss>
