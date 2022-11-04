@@ -1,3 +1,6 @@
+![Barbell Image](https://www.barbellformac.com/demo.png)
+
+
 # Barbell
 
 Barbell is an open source tiny newsfeed directly on the macOS Menu Bar.
