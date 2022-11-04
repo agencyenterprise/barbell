@@ -3,7 +3,7 @@
 
 # Barbell
 
-Barbell is an open source tiny newsfeed directly on the macOS Menu Bar.
+Barbell is an tiny open source newsfeed directly on the macOS Menu Bar.
 Seamlessly track multiple sources like
 Reddit, Twitter, and Hacker News.
 
